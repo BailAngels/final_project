@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<body style="margin-top: 100px;">
+
+{% include "base/header.html" %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Профиль пользователя</div>
+
+                <div class="card-body">
+                    <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+                    <p><strong>Никнейм:</strong> {{ user.display_name }}</p>
+                    <p><strong>О себе:</strong> {{ user.bio }}</p>
+                    {% if user.avatar %}
+                        <p><img src="{{ user.avatar.url }}" alt="Аватар" class="img-fluid"></p>
+                    {% endif %}
+                    <p><a href="{% url 'user_update' user.pk %}" class="btn btn-primary">Редактировать профиль</a></p>
+                    <p><a href="{% url 'user_delete' user.pk %}" class="btn btn-danger">Удалить профиль</a></p>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary">Выйти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "base/footer.html" %}
+
+</body>
+</html>
+{% endblock %}

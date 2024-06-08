@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+
+
+{% block content %}
+<body>
+
+{% include "base/header.html" %}
+
+  <!-- Banner Start -->
+  <div class="banner banner-video dark-overlay">
+    <video autoplay muted loop id="myVideo">
+      <source src="../../static/assets/vids/video-banner.mp4" type="video/mp4">
+    </video>
+    <!-- Prev Arrow -->
+    <i class="slider-prev fas fa-arrow-left slick-arrow"></i>
+    <div class="container">
+
+      <div class="banner-slider">
+        <div class="banner-item text-center">
+          <div class="banner-inner">
+            <h1 class="title text-white">Не знаете куда сходить !!? <span class="custom-primary">Не проблема</span> </h1>
+            <p class="subtitle text-white">Откройте для себя лучшие рестораны и блюда с нашими честными и подробными рецензиями, чтобы каждое ваше посещение было незабываемым!</p>
+            <a href="{% url 'register' %}" class="btn-custom primary shadow-none">зарегистрироваться<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="banner-item text-center">
+          <div class="banner-inner">
+            <h1 class="title text-white"><span class="custom-primary">Elevate</span> Your Cooking Skills</h1>
+            <p class="subtitle text-white">Bacon ipsum dolor amet ball tip pork chop cow tenderloin andouille. Pastrami pork picanha tongue venison strip steak</p>
+            <a href="#" class="btn-custom primary shadow-none">Visit My Blog <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Next Arrow -->
+    <i class="slider-next fas fa-arrow-right slick-arrow"></i>
+  </div>
+  <!-- Banner End -->
+
+  <div class="container mt-5">
+    <h1 class="mb-4">Города</h1>
+    <div class="list-group">
+        {% for city in cities %}
+            <a href="{% url 'detail' city.id %}" class="list-group-item list-group-item-action">
+                {{ city.title }}
+            </a>
+        {% endfor %}
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% include "base/footer.html" %}
+
+</body>
+
+</html>
+
+{% endblock %}

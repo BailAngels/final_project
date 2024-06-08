@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<body style="margin-top: 100px;">
+
+{% include "base/header.html" %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header" style="margin-top: 20px;">Редактирование профиля</div>
+
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </form>
+                    <a href="{% url 'user_detail' user.pk %}" class="btn btn-secondary mt-3">Назад к профилю</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "base/footer.html" %}
+
+</body>
+</html>
+{% endblock %}

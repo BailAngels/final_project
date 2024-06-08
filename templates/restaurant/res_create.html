@@ -1,0 +1,44 @@
+{% extends "base/base.html" %}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+{% block content %}
+
+<body style="margin-top: 100px;">
+
+    {% include "base/header.html" %}
+
+    <div class="container my-5">
+        <h1 class="mb-4">Создать Ресторан</h1>
+        <form method="post" enctype="multipart/form-data" class="mb-4">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <h2 class="mb-3">Изображения</h2>
+            <div class="form-group">
+                {{ formset.management_form }}
+                <div class="row">
+                    {% for form in formset %}
+                        <div class="col-md-4 mb-3">
+                            {{ form.as_p }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Создать</button>
+        </form>
+        <a href="{% url 'rest_list' %}" class="btn btn-secondary">Назад к списку ресторанов</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% include "base/footer.html" %}
+
+</body>
+</html>
+
+
+{% endblock  %}

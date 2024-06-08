@@ -1,0 +1,79 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<body>
+    {% include "base/header.html" %}
+
+    <div class="container my-5">
+        <div class="card mb-5" style='margin-top: 100px;'>
+            <div class="card-body">
+                <p class="card-title"><strong>Название:</strong>{{ rest.title }}</p>
+                <p class="card-text"><strong>Описание:</strong> {{ rest.description }}</p>
+                <p class="card-text"><strong>Адрес:</strong> {{ rest.address }}</p>
+                <p class="card-text"><strong>Телефон:</strong> {{ rest.phone }}</p>
+                <p class="card-text"><strong>Город:</strong> {{ rest.city.title }}</p>
+            </div>
+        </div>
+
+        <h2 class="mb-4">Изображения</h2>
+        <div class="row mb-5">
+            {% for image in rest.r_images.all %}
+                <div class="col-md-3 mb-4">
+                    <img src="{{ image.image.url }}" alt="{{ rest.title }}" class="img-fluid rounded">
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-muted">Нет изображений для этого ресторана.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="mb-4">Рецензии</h2>
+        <div class="row mb-5">
+            {% for review in reviews %}
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text"><strong>{{ review.user.username }}</strong></p>
+                            <p class="card-text">{{ review.text }}</p>
+                            <p class="card-text"><small class="text-muted">{{ review.pub_date }}</small></p>
+                            {% if review.user == request.user %}
+                                <div class="d-flex justify-content-end">
+                                    <a href="{% url 'rest_review_update' review.pk %}" class="btn btn-sm btn-primary mx-1">Изменить</a>
+                                    <a href="{% url 'rest_review_delete' review.pk %}" class="btn btn-sm btn-danger mx-1">Удалить</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-muted">Нет рецензий для этого ресторана.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="mb-4">Добавить рецензию</h2>
+        <div class="row mb-5">
+            <div class="col-12">
+                <form method="post" action="{% url 'rest_review_create' rest.pk %}">
+                    {% csrf_token %}
+                    {{ review_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mb-5">
+            <a href="{% url 'rest_update' rest.pk %}" class="btn btn-primary">Редактировать</a>
+            <a href="{% url 'rest_delete' rest.pk %}" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'restaurant_menu' rest.pk %}" class="btn btn-info">Меню</a>
+            <a href="{% url 'rest_list' %}" class="btn btn-secondary">Назад к списку ресторанов</a>
+        </div>
+    </div>
+
+    {% include "base/footer.html" %}
+
+</body>
+
+{% endblock %}

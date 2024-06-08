@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<body>
+    {% include "base/header.html" %}
+
+    <div class="container my-5">
+        <h2 class="mb-4">{{ restaurant.title }} - Меню</h2>
+        <div class="row mb-5">
+            {% for dish in dishes %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="{% url 'dish_detail' dish.pk %}" class="text-decoration-none text-dark">
+                            {% if dish.d_images.first %}
+                                <img src="{{ dish.d_images.first.image.url }}" class="card-img-top" alt="{{ dish.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ dish.title }}</h5>
+                                <p class="card-text">{{ dish.description }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-muted">Нет блюд для этого ресторана.</p>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'rest_detail' restaurant.pk %}" class="btn btn-secondary mr-2">Назад к ресторану</a>
+        <a href="{% url 'dish_create' %}" class="btn btn-primary">Добавить блюдо</a>
+    </div>
+
+    {% include "base/footer.html" %}
+
+</body>
+
+{% endblock %}

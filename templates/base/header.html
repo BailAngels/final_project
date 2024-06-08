@@ -1,0 +1,81 @@
+{% load static %}  
+  
+  <!-- Header Start -->
+  <header class="main-header header-1 can-sticky">
+    <nav class="navbar">
+      <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand" href="{% url 'homepage' %}"> <img src="{% static 'assets/img/logo.png' %}" alt="logo"> </a>
+        <!-- Menu -->
+        <ul class="navbar-nav">
+          <li class="menu-item menu-item-has-children">
+            <a href="{% url 'homepage' %}">Главаная страница</a>
+          </li>
+          <li class="menu-item menu-item-has-children">
+            <a href="{% url 'rest_list' %}">Рестораны</a>
+          </li>
+          <li class="menu-item menu-item-has-children">
+            <a href="#">Страницы</a>
+            <ul class="submenu">
+              <li class="menu-item"> <a href="{% url 'about' %}">О нас</a> </li>
+              {% if user.is_authenticated %}
+              <li class="menu-item"> <a href="{% url 'user_detail' user.id %}">Профиль</a> </li>
+            {% endif %}
+            {% if not user.is_authenticated %}
+              <li class="menu-item"> <a href="{% url 'login' %}">Авторизация</a> </li>
+              <li class="menu-item"> <a href="{% url 'register' %}">Регистрация</a> </li>
+            {% endif %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+  </header>
+  <!-- Header End -->
+
+    <!-- Preloader start -->
+    <div class="ct-preloader">
+      <div class="ct-preloader-inner">
+        <div class="ct-preloader-pan">
+          <div class="ct-preloader-pan-inner">
+            <div class="ct-preloader-pan-circle"></div>
+            <div class="ct-preloader-pan-handle"></div>
+          </div>
+          <div class="ct-preloader-pancake">
+            <div class="ct-preloader-pancake-inner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Preloader End -->
+  
+    <!-- Aside (Mobile Navigation) -->
+    <aside class="main-aside">
+      <a class="navbar-brand" href="index.html"> <img src="../../static/assets/img/logo.png" alt="logo"> </a>
+  
+      <div class="aside-scroll">
+        <ul>
+          <li class="menu-item menu-item-has-children">
+            <a href="#">Главная страница</a>
+          </li>
+          <li class="menu-item menu-item-has-children">
+            <a href="#">Blog</a>
+          </li>
+          <li class="menu-item menu-item-has-children">
+            <a href="#">Страницы</a>
+            <ul class="submenu">
+              <li class="menu-item"> <a href="about-us.html">О нас</a> </li>
+              {% if user.is_authenticated %}
+                <li class="menu-item"> <a href="{% url 'user_detail' user.id %}">Профиль</a> </li>
+              {% endif %}
+              {% if not user.is_authenticated %}
+                <li class="menu-item"> <a href="{% url 'login' %}">Авторизация</a> </li>
+                <li class="menu-item"> <a href="{% url 'register' %}">Регистрация</a> </li>
+            {% endif %}
+            </ul>
+          </li>
+      </div>
+  
+    </aside>
+    <div class="aside-overlay aside-trigger"></div>
